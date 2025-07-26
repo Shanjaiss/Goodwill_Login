@@ -1,0 +1,4 @@
+# .eslintignore
+dist/
+dist-uat/
+dist-prod/

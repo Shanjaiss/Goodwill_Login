@@ -1,0 +1,32 @@
+:root {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ant-btn-primary {
+  background-color: #123c94;
+  border-color: #123c94;
+}
+
+.ant-btn-primary:hover {
+  box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.2);
+  background-color: #123c94 !important;
+  border-color: #123c94 !important;
+}
+
+.ant-modal-close {
+  color: #ffff !important;
+}
+
+.custom-link {
+  color: #2d5aa8 !important;
+}
+
+.custom-link:hover {
+  color: #1b867b !important;
+}
