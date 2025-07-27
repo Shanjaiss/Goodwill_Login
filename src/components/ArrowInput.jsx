@@ -1,17 +1,17 @@
-import React from "react";
-import { Input, Select, Checkbox, DatePicker, Form, Tooltip } from "antd";
-import dayjs from "dayjs";
+import React from 'react';
+import { Input, Select, Checkbox, DatePicker, Form, Tooltip } from 'antd';
+import dayjs from 'dayjs';
 
 const { Option } = Select;
 
 const ArrowInput = ({
   label,
   name,
-  type = "text",
+  type = 'text',
   value,
   onChange,
   options = [],
-  placeholder = "",
+  placeholder = '',
   initialValue,
   rules = [],
   extra,
@@ -22,7 +22,7 @@ const ArrowInput = ({
 }) => {
   const getInputComponent = () => {
     switch (type) {
-      case "select":
+      case 'select':
         return (
           <Select
             value={value}
@@ -38,7 +38,7 @@ const ArrowInput = ({
           </Select>
         );
 
-      case "checkbox":
+      case 'checkbox':
         return (
           <Checkbox
             checked={value}
@@ -50,7 +50,7 @@ const ArrowInput = ({
           </Checkbox>
         );
 
-      case "date":
+      case 'date':
         return (
           <DatePicker
             value={value ? dayjs(value) : null}
@@ -58,12 +58,12 @@ const ArrowInput = ({
               onChange({ target: { name, value: dateString } })
             }
             placeholder={placeholder}
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
             suffix={suffix}
           />
         );
 
-      case "password":
+      case 'password':
         return (
           <Input.Password
             name={name}
@@ -73,16 +73,54 @@ const ArrowInput = ({
           />
         );
 
+      // default:
+      //   return (
+      //     <Input
+      //       name={name}
+      //       value={value}
+      //       // onChange={onChange}
+      //       onChange={(e) => {
+      //         const upperValue = e.target.value.toUpperCase();
+      //         onChange({ target: { name, value: upperValue } });
+      //       }}
+      //       placeholder={placeholder}
+      //       suffix={suffix}
+      //     />
+      //   );
       default:
         return (
           <Input
             name={name}
             value={value}
-            onChange={onChange}
+            onChange={(e) => {
+              let val = e.target.value;
+              if (name === 'clientId') {
+                val = val.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+              }
+              onChange({ target: { name, value: val } });
+            }}
             placeholder={placeholder}
             suffix={suffix}
+            inputMode='text'
+            pattern='[A-Za-z0-9]*'
+            autoCorrect='off'
+            autoCapitalize='off'
+            onKeyDown={(e) => {
+              if (name === 'clientId' && e.key === ' ') {
+                e.preventDefault();
+              }
+
+              if (
+                name === 'clientId' &&
+                e.key.length === 1 &&
+                !/[A-Za-z0-9]/.test(e.key)
+              ) {
+                e.preventDefault();
+              }
+            }}
           />
         );
+
       // default:
       //   return (
       //     <Input
@@ -105,7 +143,7 @@ const ArrowInput = ({
   return (
     <Tooltip title={tooltip} placement={placement}>
       <Form.Item
-        label={type !== "checkbox" ? label : ""}
+        label={type !== 'checkbox' ? label : ''}
         name={name}
         initialValue={initialValue}
         rules={rules ?? []}

@@ -156,3 +156,7 @@
 .passwordMust-list {
   color: #6b6b6b !important;
 }
+
+input[name='clientId'] {
+  text-transform: uppercase;
+}
